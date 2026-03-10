@@ -13,31 +13,35 @@ function VideoCard({ item }: { item: { category: string; title: string; video: s
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
-  // ... any other code inside this function ...
+  const togglePlay = () => {
+    if (!videoRef.current) return
+
+    if (isPlaying) {
+      videoRef.current.pause()
+    } else {
+      videoRef.current.play()
+    }
+
+    setIsPlaying(!isPlaying)
+  }
 
   return (
-    <div className="...">
-      {/* all the video card JSX */}
-    </div>
-  )
-}
-  return (
     <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
+      
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
         loop
         playsInline
         preload="metadata"
-        onClick={togglePlay}
       >
         <source src={item.video} type="video/mp4" />
       </video>
-      
+
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
-      
-      {/* Big play/pause button in center */}
+
+      {/* Big play/pause button */}
       <button 
         onClick={togglePlay}
         className="absolute inset-0 w-full h-full flex items-center justify-center group/btn"
@@ -53,8 +57,8 @@ function VideoCard({ item }: { item: { category: string; title: string; video: s
           )}
         </div>
       </button>
-      
-      {/* Text content - always visible */}
+
+      {/* Text */}
       <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
         <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block drop-shadow-lg">
           {item.category}
@@ -63,20 +67,7 @@ function VideoCard({ item }: { item: { category: string; title: string; video: s
           {item.title}
         </h3>
       </div>
-      
-      {/* Video controls indicator (small play/pause in corner) */}
-      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        <div className="bg-black/50 backdrop-blur-sm rounded-full p-2">
-          {isPlaying ? (
-            <div className="flex gap-0.5">
-              <div className="w-1 h-4 bg-white rounded-full"></div>
-              <div className="w-1 h-4 bg-white rounded-full"></div>
-            </div>
-          ) : (
-            <Play className="w-4 h-4 text-white fill-white" />
-          )}
-        </div>
-      </div>
+
     </div>
   )
 }
