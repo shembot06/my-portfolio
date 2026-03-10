@@ -1,57 +1,46 @@
+"use client"
 import { useRef, useEffect, useState } from "react"
 import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
+
 import { sendEmail } from "@/app/actions/send-email"
 import emailjs from "@emailjs/browser"
 
 // Initialize EmailJS
 emailjs.init("LDAiErYYHHkIijklE")
 
-function VideoCard({ item, playingId, setPlayingId }: { 
-  item: { category: string; title: string; video: string },
-  playingId: string | null,
-  setPlayingId: (id: string | null) => void 
-}) {
+function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
-  const videoId = item.video
 
-  // Pause this video if another video starts playing
+  // Auto-play when component mounts
   useEffect(() => {
-    if (playingId !== videoId && videoRef.current) {
-      videoRef.current.pause()
-    }
-  }, [playingId, videoId])
-
-  const handleVideoClick = () => {
     if (videoRef.current) {
-      if (videoRef.current.paused) {
-        // Play this video and pause others
-        setPlayingId(videoId)
-        videoRef.current.play()
-      } else {
-        // Pause this video
-        videoRef.current.pause()
-        setPlayingId(null)
-      }
+      videoRef.current.play().catch(e => console.log("Auto-play prevented"));
     }
-  }
+  }, []);
 
   return (
-    <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 w-full max-w-[320px] mx-auto">
+    <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
       <video
         ref={videoRef}
-        className="w-full h-full object-cover cursor-pointer"
-        onClick={handleVideoClick}
-        preload="metadata"
+        className="w-full h-full object-cover"
+        loop
+        muted
+        playsInline
+        autoPlay
+        preload="auto"
       >
         <source src={item.video} type="video/mp4" />
       </video>
       
-      {/* Simple text overlay */}
-      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
-        <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold block">
+      {/* Gradient overlay - lighter so video shows through */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      
+      {/* Text content */}
+      <div className="absolute bottom-4 left-4 right-4">
+        <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block drop-shadow-lg">
           {item.category}
         </span>
-        <h3 className="text-xs font-bold uppercase text-white">
+        <h3 className="text-sm font-bold uppercase text-white drop-shadow-lg">
           {item.title}
         </h3>
       </div>
@@ -181,10 +170,7 @@ function ContactForm() {
 }
 
 export default function PortfolioPage() {
-  const [playingId, setPlayingId] = useState<string | null>(null) // ADD THIS LINE
-  
-  // rest of your code...
-}
+  return (
     <main className="relative overflow-hidden bg-black text-white">
       {/* Background Elements */}
       <div className="fixed inset-0 z-0">
@@ -239,16 +225,12 @@ export default function PortfolioPage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-<div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-  {portfolioItems.map((item, index) => (
-    <VideoCard 
-      key={index}
-      item={item} 
-      playingId={playingId}
-      setPlayingId={setPlayingId}
-    />
-  ))}
-</div>
+            {portfolioItems.map((item, index) => (
+              <VideoCard key={index} item={item} />
+            ))}
+          </div>
+        </div>
+      </section>
 
       {/* Services Section */}
       <section id="services" className="relative z-10 py-32 px-6 border-t border-white/5 bg-black">
