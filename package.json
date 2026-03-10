@@ -9,10 +9,7 @@
     "start": "next start"
   },
   "dependencies": {
-<<<<<<< HEAD
-=======
     "@emailjs/browser": "4.4.1",
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "1.2.2",
     "@radix-ui/react-alert-dialog": "1.1.4",
