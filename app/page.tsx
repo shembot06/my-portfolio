@@ -11,32 +11,41 @@ emailjs.init("LDAiErYYHHkIijklE")
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
-  // Auto-play when component mounts
-  useEffect(() => {
+  const handleVideoClick = () => {
     if (videoRef.current) {
-      videoRef.current.play().catch(e => console.log("Auto-play prevented"));
+      if (videoRef.current.paused) {
+        videoRef.current.play()
+      } else {
+        videoRef.current.pause()
+      }
     }
-  }, []);
+  }
 
   return (
     <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
       <video
         ref={videoRef}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover cursor-pointer"
+        onClick={handleVideoClick}
+        preload="metadata"
         loop
-        muted
         playsInline
-        autoPlay
-        preload="auto"
       >
         <source src={item.video} type="video/mp4" />
       </video>
       
-      {/* Gradient overlay - lighter so video shows through */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
+      
+      {/* Play/Pause indicator (optional) */}
+      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+        <div className="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center">
+          <Play className="w-6 h-6 text-white" />
+        </div>
+      </div>
       
       {/* Text content */}
-      <div className="absolute bottom-4 left-4 right-4">
+      <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
         <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block drop-shadow-lg">
           {item.category}
         </span>
