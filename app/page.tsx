@@ -1,7 +1,14 @@
 "use client"
 import { useRef, useEffect, useState } from "react"
 import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
+<<<<<<< HEAD
 import { sendEmail } from "@/app/actions/send-email"
+=======
+import emailjs from "@emailjs/browser"
+
+// Initialize EmailJS
+emailjs.init("LDAiErYYHHkIijklE")
+>>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
 
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -54,6 +61,7 @@ function ContactForm() {
       return
     }
 
+<<<<<<< HEAD
     const result = await sendEmail({ name, email, projectType, message })
 
     if (result.success) {
@@ -61,6 +69,26 @@ function ContactForm() {
       form.reset()
     } else {
       setStatus({ type: "error", message: result.error })
+=======
+    try {
+      await emailjs.send("service_evcg2zy", "template_yjbp927", {
+        to_email: "arvinadove1128@gmail.com",
+        from_name: name,
+        from_email: email,
+        project_type: projectType || "Not specified",
+        message: message,
+        reply_to: email,
+      })
+
+      setStatus({ type: "success", message: "Inquiry sent successfully! I'll get back to you soon." })
+      form.reset()
+    } catch (error) {
+      console.error("[v0] Email error:", error)
+      setStatus({
+        type: "error",
+        message: "Failed to send inquiry. Please try again.",
+      })
+>>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
     }
 
     setIsLoading(false)
@@ -157,7 +185,11 @@ export default function PortfolioPage() {
             READY TO MAKE <span className="text-neon-purple glow-text-purple animate-pulse">CHANGE</span>?
           </h1>
           <p className="text-lg md:text-xl text-gray-300 font-medium mb-10 max-w-xl leading-relaxed">
+<<<<<<< HEAD
             Hi, I'm <span className="text-neon-purple font-bold">Arvin Adove</span> — I help brands and creators tell powerful stories through cinematic edits, focused on high-converting, engaging content.
+=======
+            Hi, I'm <span className="text-neon-purple font-bold">Arvin Adove</span>  I help brands and creators/coaches tell powerful stories through cinematic edits, focused on high-converting and engaging content that connects to your market.
+>>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
           </p>
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
             <a
@@ -170,7 +202,11 @@ export default function PortfolioPage() {
               href="#contact"
               className="px-8 py-4 border border-white/20 hover:bg-white/10 text-white font-bold rounded-full transition-all"
             >
+<<<<<<< HEAD
               HIRE ME
+=======
+              BUILD WITH ME
+>>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
             </a>
           </div>
         </div>
@@ -373,15 +409,26 @@ export default function PortfolioPage() {
 }
 
 const portfolioItems = [
+<<<<<<< HEAD
   { category: "Salon", title: "Luxury Hair Ritual", video: "/videos/video1.mp4" },
   { category: "Real Estate", title: "Modern Penthouse", video: "/videos/video2.mp4" },
   { category: "Coach", title: "Performance Mindset", video: "/videos/video3.mp4" },
   { category: "Fashion", title: "Urban Streetwear", video: "/videos/video4.mp4" },
+=======
+  { category: "Luxury", title: "Unboxing Limited Edition Trunk Bag", video: "/videos/video1.mp4" },
+  { category: "Real Estate", title: "0% Down Payment", video: "/videos/video2.mp4" },
+  { category: "Coach", title: "Podcast Video", video: "/videos/video3.mp4" },
+  { category: "SMM", title: "Service Based Business", video: "/videos/video4.mp4" },
+>>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
 ]
 
 const tools = [
   { name: "CapCut", initials: "CC" },
+<<<<<<< HEAD
   { name: "Premiere Pro", initials: "PP" },
+=======
+  { name: "Premiere Pro", initials: "PR" },
+>>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
   { name: "After Effects", initials: "AE" },
   { name: "Canva", initials: "CV" },
 ]
