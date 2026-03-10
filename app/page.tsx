@@ -3,12 +3,10 @@ import { useRef, useEffect, useState } from "react"
 import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
 
 import { sendEmail } from "@/app/actions/send-email"
-
 import emailjs from "@emailjs/browser"
 
 // Initialize EmailJS
 emailjs.init("LDAiErYYHHkIijklE")
-
 
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -61,14 +59,6 @@ function ContactForm() {
       return
     }
 
-    const result = await sendEmail({ name, email, projectType, message })
-
-    if (result.success) {
-      setStatus({ type: "success", message: result.message })
-      form.reset()
-    } else {
-      setStatus({ type: "error", message: result.error })
-=======
     try {
       await emailjs.send("service_evcg2zy", "template_yjbp927", {
         to_email: "arvinadove1128@gmail.com",
@@ -87,7 +77,6 @@ function ContactForm() {
         type: "error",
         message: "Failed to send inquiry. Please try again.",
       })
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
     }
 
     setIsLoading(false)
@@ -184,11 +173,7 @@ export default function PortfolioPage() {
             READY TO MAKE <span className="text-neon-purple glow-text-purple animate-pulse">CHANGE</span>?
           </h1>
           <p className="text-lg md:text-xl text-gray-300 font-medium mb-10 max-w-xl leading-relaxed">
-<<<<<<< HEAD
             Hi, I'm <span className="text-neon-purple font-bold">Arvin Adove</span> — I help brands and creators tell powerful stories through cinematic edits, focused on high-converting, engaging content.
-=======
-            Hi, I'm <span className="text-neon-purple font-bold">Arvin Adove</span>  I help brands and creators/coaches tell powerful stories through cinematic edits, focused on high-converting and engaging content that connects to your market.
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
           </p>
           <div className="flex flex-wrap gap-4 justify-center lg:justify-start">
             <a
@@ -201,11 +186,7 @@ export default function PortfolioPage() {
               href="#contact"
               className="px-8 py-4 border border-white/20 hover:bg-white/10 text-white font-bold rounded-full transition-all"
             >
-<<<<<<< HEAD
               HIRE ME
-=======
-              BUILD WITH ME
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
             </a>
           </div>
         </div>
@@ -214,7 +195,7 @@ export default function PortfolioPage() {
           <div className="absolute -inset-2 bg-linear-to-r from-neon-purple via-neon-blue to-neon-purple rounded-3xl blur-2xl opacity-40 animate-pulse"></div>
           <div className="relative w-64 h-80 md:w-80 md:h-[450px] overflow-hidden rounded-2xl border-2 border-neon-purple/50 bg-gray-900 shadow-2xl">
             <img
-              src="/professional-video-editor-portrait-masculine-cinem.jpg"
+              src="https://res.cloudinary.com/dxyztzirn/image/upload/v1773115766/professional-video-editor-portrait-masculine-cinem_kpefz7.jpg"
               alt="Arvin Adove - Professional Video Editor"
               className="w-full h-full object-cover"
             />
@@ -373,8 +354,6 @@ export default function PortfolioPage() {
                 I'm currently accepting new projects for 2026. Let's discuss how we can elevate your visual
                 storytelling.
               </p>
-
-
             </div>
 
             <ContactForm />
@@ -408,26 +387,15 @@ export default function PortfolioPage() {
 }
 
 const portfolioItems = [
-<<<<<<< HEAD
-  { category: "Salon", title: "Luxury Hair Ritual", video: "/videos/video1.mp4" },
-  { category: "Real Estate", title: "Modern Penthouse", video: "/videos/video2.mp4" },
-  { category: "Coach", title: "Performance Mindset", video: "/videos/video3.mp4" },
-  { category: "Fashion", title: "Urban Streetwear", video: "/videos/video4.mp4" },
-=======
-  { category: "Luxury", title: "Unboxing Limited Edition Trunk Bag", video: "/videos/video1.mp4" },
-  { category: "Real Estate", title: "0% Down Payment", video: "/videos/video2.mp4" },
-  { category: "Coach", title: "Podcast Video", video: "/videos/video3.mp4" },
-  { category: "SMM", title: "Service Based Business", video: "/videos/video4.mp4" },
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
+  { category: "Luxury", title: "Unboxing Limited Edition Trunk Bag", video: "https://res.cloudinary.com/dxyztzirn/image/upload/v1773115766/professional-video-editor-portrait-masculine-cinem_kpefz7.jpg" },
+  { category: "Real Estate", title: "0% Down Payment", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113712/video2_txqxym.mp4" },
+  { category: "Coach", title: "Podcast Video", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113710/video3_lqv3g6.mp4" },
+  { category: "SMM", title: "Service Based Business", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113715/video4_cihi0n.mp4" },
 ]
 
 const tools = [
   { name: "CapCut", initials: "CC" },
-<<<<<<< HEAD
-  { name: "Premiere Pro", initials: "PP" },
-=======
   { name: "Premiere Pro", initials: "PR" },
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
   { name: "After Effects", initials: "AE" },
   { name: "Canva", initials: "CV" },
 ]
