@@ -1,27 +1,52 @@
-"use client"
 import { useRef, useEffect, useState } from "react"
-import { Play } from "lucide-react"
-
-
+import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
 import { sendEmail } from "@/app/actions/send-email"
 import emailjs from "@emailjs/browser"
 
 // Initialize EmailJS
 emailjs.init("LDAiErYYHHkIijklE")
 
-function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
+function VideoCard({ item, playingId, setPlayingId }: { 
+  item: { category: string; title: string; video: string },
+  playingId: string | null,
+  setPlayingId: (id: string | null) => void 
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null)
+  const videoId = item.video
+
+  // Pause this video if another video starts playing
+  useEffect(() => {
+    if (playingId !== videoId && videoRef.current) {
+      videoRef.current.pause()
+    }
+  }, [playingId, videoId])
+
+  const handleVideoClick = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        // Play this video and pause others
+        setPlayingId(videoId)
+        videoRef.current.play()
+      } else {
+        // Pause this video
+        videoRef.current.pause()
+        setPlayingId(null)
+      }
+    }
+  }
+
   return (
     <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 w-full max-w-[320px] mx-auto">
       <video
-        className="w-full h-full object-cover"
-        controls
+        ref={videoRef}
+        className="w-full h-full object-cover cursor-pointer"
+        onClick={handleVideoClick}
         preload="metadata"
       >
         <source src={item.video} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
       
-      {/* Simple text overlay at bottom */}
+      {/* Simple text overlay */}
       <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
         <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold block">
           {item.category}
@@ -156,7 +181,10 @@ function ContactForm() {
 }
 
 export default function PortfolioPage() {
-  return (
+  const [playingId, setPlayingId] = useState<string | null>(null) // ADD THIS LINE
+  
+  // rest of your code...
+}
     <main className="relative overflow-hidden bg-black text-white">
       {/* Background Elements */}
       <div className="fixed inset-0 z-0">
@@ -211,12 +239,15 @@ export default function PortfolioPage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {portfolioItems.map((item, index) => (
-              <VideoCard key={index} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
+          {portfolioItems.map((item, index) => (
+  <div key={index} className="w-[300px] md:w-[350px]">
+    <VideoCard 
+      item={item} 
+      playingId={playingId}
+      setPlayingId={setPlayingId}
+    />
+  </div>
+))}
 
       {/* Services Section */}
       <section id="services" className="relative z-10 py-32 px-6 border-t border-white/5 bg-black">
