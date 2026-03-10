@@ -1,7 +1,7 @@
 "use client"
 import { useRef, useEffect, useState } from "react"
 import { Play } from "lucide-react"
-import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
+
 
 import { sendEmail } from "@/app/actions/send-email"
 import emailjs from "@emailjs/browser"
