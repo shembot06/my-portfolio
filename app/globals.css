@@ -506,3 +506,55 @@ a, button, .group, .transition-all {
     background-position: 0% 0%;
   }
 }
+/* Glitch effect para sa CHANGE word */
+.glitch-text {
+  animation: glitch 3s infinite;
+  position: relative;
+  display: inline-block;
+  color: #a855f7;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5);
+}
+
+@keyframes glitch {
+  0%, 100% { 
+    transform: skew(0deg); 
+    opacity: 1;
+  }
+  95% { 
+    transform: skew(0deg); 
+    opacity: 1;
+  }
+  96% { 
+    transform: skew(5deg); 
+    text-shadow: -3px 0 #ff00ff, 3px 0 #00ffff;
+    opacity: 0.9;
+  }
+  97% { 
+    transform: skew(-5deg); 
+    text-shadow: 3px 0 #ff00ff, -3px 0 #00ffff;
+    opacity: 0.9;
+  }
+  98% { 
+    transform: skew(3deg); 
+    text-shadow: -2px 0 #ff00ff, 2px 0 #00ffff;
+  }
+  99% { 
+    transform: skew(-3deg); 
+    text-shadow: 2px 0 #ff00ff, -2px 0 #00ffff;
+  }
+}
+
+/* Optional: Pag gusto mo mas intense */
+.glitch-text.intense {
+  animation: glitchIntense 2s infinite;
+}
+
+@keyframes glitchIntense {
+  0%, 100% { transform: skew(0deg); }
+  94% { transform: skew(0deg); }
+  95% { transform: skew(10deg) scale(1.1); text-shadow: -5px 0 #ff00ff, 5px 0 #00ffff; }
+  96% { transform: skew(-10deg) scale(0.9); text-shadow: 5px 0 #ff00ff, -5px 0 #00ffff; }
+  97% { transform: skew(7deg); text-shadow: -3px 0 #ff00ff, 3px 0 #00ffff; }
+  98% { transform: skew(-7deg); text-shadow: 3px 0 #ff00ff, -3px 0 #00ffff; }
+  99% { transform: skew(3deg); }
+}
