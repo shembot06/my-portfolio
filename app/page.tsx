@@ -228,7 +228,7 @@ export default function PortfolioPage() {
       <section className="relative z-10 min-h-screen flex flex-col items-center justify-center px-6 pt-20 pb-10 text-center md:px-20 lg:flex-row lg:text-left lg:justify-between">
         <div className="max-w-2xl lg:pr-12">
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black tracking-tighter mb-6 leading-tight">
-            READY TO MAKE <span className="text-neon-purple glow-text-purple animate-pulse">CHANGE</span>?
+            READY TO MAKE <span className="font-changer text-neon-purple glow-text-purple">CHANGE</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-300 font-medium mb-10 max-w-xl leading-relaxed">
             Hi, I'm <span className="text-neon-purple font-bold">Arvin Adove</span> — I help brands and creators tell powerful stories through cinematic edits, focused on high-converting, engaging content.
