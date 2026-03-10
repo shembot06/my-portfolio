@@ -13,17 +13,14 @@ function VideoCard({ item }: { item: { category: string; title: string; video: s
   const videoRef = useRef<HTMLVideoElement>(null)
   const [isPlaying, setIsPlaying] = useState(false)
 
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause()
-      } else {
-        videoRef.current.play()
-      }
-      setIsPlaying(!isPlaying)
-    }
-  }
+  // ... any other code inside this function ...
 
+  return (
+    <div className="...">
+      {/* all the video card JSX */}
+    </div>
+  )
+}
   return (
     <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
       <video
