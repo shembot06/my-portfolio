@@ -198,6 +198,22 @@ function ContactForm() {
 
 export default function PortfolioPage() {
   const [playingId, setPlayingId] = useState<string | null>(null);
+    useEffect(() => {
+    const scrollContainer = document.querySelector('.overflow-x-auto');
+    if (!scrollContainer) return;
+
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      scrollContainer.scrollLeft += e.deltaY;
+    };
+
+    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
+    
+    return () => {
+      scrollContainer.removeEventListener('wheel', handleWheel);
+    };
+  }, []);
+
   
   return (
     <main className="relative overflow-hidden bg-black text-white">
