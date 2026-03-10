@@ -197,7 +197,9 @@ function ContactForm() {
 }
 
 export default function PortfolioPage() {
-  const [playingId, setPlayingId] = useState<string | null>(null) // Add this line
+  const [playingId, setPlayingId] = useState<string | null>(null);
+  
+  return (
     <main className="relative overflow-hidden bg-black text-white">
       {/* Background Elements */}
       <div className="fixed inset-0 z-0">
