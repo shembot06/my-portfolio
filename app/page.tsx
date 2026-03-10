@@ -8,25 +8,43 @@ import emailjs from "@emailjs/browser"
 // Initialize EmailJS
 emailjs.init("LDAiErYYHHkIijklE")
 
-function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
+function VideoCard({ item, playingId, setPlayingId }: { 
+  item: { category: string; title: string; video: string },
+  playingId: string | null,
+  setPlayingId: (id: string | null) => void 
+}) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const videoId = item.video
+
+  // Pause this video if another video starts playing
+  useEffect(() => {
+    if (playingId !== videoId && videoRef.current) {
+      videoRef.current.pause()
+    }
+  }, [playingId, videoId])
 
   const handleVideoClick = () => {
     if (videoRef.current) {
       if (videoRef.current.paused) {
+        // Play this video and pause others
+        setPlayingId(videoId)
         videoRef.current.play()
       } else {
+        // Pause this video
         videoRef.current.pause()
+        setPlayingId(null)
       }
     }
   }
 
   return (
-    <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
+    <div 
+      className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all duration-300 hover:scale-105 hover:z-10 w-full max-w-[320px] mx-auto cursor-pointer"
+      onClick={handleVideoClick}
+    >
       <video
         ref={videoRef}
-        className="w-full h-full object-cover cursor-pointer"
-        onClick={handleVideoClick}
+        className="w-full h-full object-cover"
         preload="metadata"
         loop
         playsInline
@@ -37,10 +55,10 @@ function VideoCard({ item }: { item: { category: string; title: string; video: s
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none"></div>
       
-      {/* Play/Pause indicator (optional) */}
+      {/* Play/Pause indicator */}
       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        <div className="w-12 h-12 rounded-full bg-black/50 flex items-center justify-center">
-          <Play className="w-6 h-6 text-white" />
+        <div className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
+          <Play className="w-6 h-6 text-white fill-white" />
         </div>
       </div>
       
@@ -179,7 +197,7 @@ function ContactForm() {
 }
 
 export default function PortfolioPage() {
-  return (
+  const [playingId, setPlayingId] = useState<string | null>(null) // Add this line
     <main className="relative overflow-hidden bg-black text-white">
       {/* Background Elements */}
       <div className="fixed inset-0 z-0">
@@ -225,21 +243,42 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Portfolio Section */}
-      <section id="work" className="relative z-10 py-24 px-6 md:px-12 bg-black/40 backdrop-blur-sm">
-        <div className="max-w-7xl mx-auto">
-          <div className="mb-16 text-center lg:text-left">
-            <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tight">Recent Works</h2>
-            <div className="h-1 w-20 bg-neon-purple mx-auto lg:mx-0"></div>
-          </div>
+   {/* Portfolio Section with Horizontal Scroll */}
+<section id="work" className="relative z-10 py-24 px-6 md:px-12 bg-black/40 backdrop-blur-sm overflow-hidden">
+  <div className="max-w-7xl mx-auto">
+    <div className="mb-16 text-center lg:text-left">
+      <h2 className="text-4xl md:text-5xl font-black mb-4 uppercase tracking-tight">Recent Works</h2>
+      <div className="h-1 w-20 bg-neon-purple mx-auto lg:mx-0"></div>
+    </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            {portfolioItems.map((item, index) => (
-              <VideoCard key={index} item={item} />
-            ))}
+    {/* Horizontal scroll container */}
+    <div className="overflow-x-auto pb-8 -mx-6 px-6 scrollbar-hide">
+      <div className="flex gap-6 w-max">
+        {portfolioItems.map((item, index) => (
+          <div key={index} className="w-[300px] md:w-[350px]">
+            <VideoCard 
+              item={item} 
+              playingId={playingId}
+              setPlayingId={setPlayingId}
+            />
           </div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+    
+    {/* Scroll indicator dots (optional) */}
+    <div className="flex justify-center gap-2 mt-4 md:hidden">
+      {portfolioItems.map((_, i) => (
+        <div 
+          key={i} 
+          className={`w-2 h-2 rounded-full transition-all ${
+            i === 0 ? 'w-6 bg-neon-purple' : 'bg-white/30'
+          }`}
+        />
+      ))}
+    </div>
+  </div>
+</section>
 
       {/* Services Section */}
       <section id="services" className="relative z-10 py-32 px-6 border-t border-white/5 bg-black">
