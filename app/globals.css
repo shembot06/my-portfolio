@@ -327,3 +327,31 @@ a, button, .group, .transition-all {
     transform: translateY(0);
   }
 }
+/* Horizontal scroll with mouse wheel */
+.overflow-x-auto {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scroll-snap-type: x mandatory;
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Video card hover scale */
+.group:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+
+/* Snap points for videos */
+.overflow-x-auto > div > div {
+  scroll-snap-align: start;
+}
