@@ -198,23 +198,23 @@ function ContactForm() {
 
 export default function PortfolioPage() {
   const [playingId, setPlayingId] = useState<string | null>(null);
-    useEffect(() => {
+  
+  // Add this useEffect for mouse wheel scrolling
+  useEffect(() => {
     const scrollContainer = document.querySelector('.overflow-x-auto');
     if (!scrollContainer) return;
 
-    const handleWheel = (e: WheelEvent) => {
+    const onWheel = (e: WheelEvent) => {
       e.preventDefault();
       scrollContainer.scrollLeft += e.deltaY;
     };
 
-    scrollContainer.addEventListener('wheel', handleWheel, { passive: false });
-    
-    return () => {
-      scrollContainer.removeEventListener('wheel', handleWheel);
-    };
+    scrollContainer.addEventListener('wheel', onWheel, { passive: false });
+    return () => scrollContainer.removeEventListener('wheel', onWheel);
   }, []);
 
   
+
   return (
     <main className="relative overflow-hidden bg-black text-white">
       {/* Background Elements */}
@@ -261,7 +261,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-   {/* Portfolio Section with Horizontal Scroll */}
+ {/* Portfolio Section with Horizontal Scroll */}
 <section id="work" className="relative z-10 py-24 px-6 md:px-12 bg-black/40 backdrop-blur-sm overflow-hidden">
   <div className="max-w-7xl mx-auto">
     <div className="mb-16 text-center lg:text-left">
@@ -269,11 +269,16 @@ export default function PortfolioPage() {
       <div className="h-1 w-20 bg-neon-purple mx-auto lg:mx-0"></div>
     </div>
 
-    {/* Horizontal scroll container */}
-    <div className="overflow-x-auto pb-8 -mx-6 px-6 scrollbar-hide">
-      <div className="flex gap-6 w-max">
+    {/* Horizontal scroll container - FIXED VERSION */}
+    <div className="w-full overflow-x-auto scrollbar-hide" style={{ 
+      overflowX: 'auto', 
+      overflowY: 'hidden',
+      WebkitOverflowScrolling: 'touch',
+      scrollBehavior: 'smooth'
+    }}>
+      <div className="flex gap-6" style={{ width: 'max-content', minWidth: '100%' }}>
         {portfolioItems.map((item, index) => (
-          <div key={index} className="w-[300px] md:w-[350px]">
+          <div key={index} style={{ width: '300px', flexShrink: 0 }}>
             <VideoCard 
               item={item} 
               playingId={playingId}
@@ -284,7 +289,7 @@ export default function PortfolioPage() {
       </div>
     </div>
     
-    {/* Scroll indicator dots (optional) */}
+    {/* Scroll indicator dots */}
     <div className="flex justify-center gap-2 mt-4 md:hidden">
       {portfolioItems.map((_, i) => (
         <div 
