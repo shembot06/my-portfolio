@@ -254,10 +254,10 @@ export default function PortfolioPage() {
           <div className="relative w-64 h-80 md:w-80 md:h-[450px] overflow-hidden rounded-2xl border-2 border-neon-purple/50 bg-gray-900 shadow-2xl">
             <img
               src="https://res.cloudinary.com/dxyztzirn/image/upload/v1773115766/professional-video-editor-portrait-masculine-cinem_kpefz7.jpg"
-              alt="Arvin Adove - Professional Video Editor"
-              className="w-full h-full object-cover"
-            />
-          </div>
+    alt="Arvin Adove - Professional Video Editor"
+    className="w-full h-full object-cover"
+  />
+</div>
         </div>
       </section>
 
