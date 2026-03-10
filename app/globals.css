@@ -406,3 +406,39 @@ a, button, .group, .transition-all {
     width: 350px;
   }
 }
+/* Font changer animation for CHANGE word */
+.font-changer {
+  animation: changeFont 8s infinite;
+  display: inline-block;
+}
+
+@keyframes changeFont {
+  0%, 100% {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: normal;
+  }
+  20% {
+    font-family: 'Coda', cursive;
+    font-weight: 800;
+    font-style: normal;
+  }
+  40% {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+  60% {
+    font-family: 'Bebas Neue', cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  80% {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-style: italic;
+  }
+}
+
+/* Import the fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Coda:wght@800&family=Poppins:ital,wght@0,900;1,900&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
