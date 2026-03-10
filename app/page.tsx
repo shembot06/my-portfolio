@@ -10,64 +10,26 @@ import emailjs from "@emailjs/browser"
 emailjs.init("LDAiErYYHHkIijklE")
 
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
-  const videoRef = useRef<HTMLVideoElement>(null)
-  const [isPlaying, setIsPlaying] = useState(false)
-
-  const togglePlay = () => {
-    if (!videoRef.current) return
-
-    if (isPlaying) {
-      videoRef.current.pause()
-    } else {
-      videoRef.current.play()
-    }
-
-    setIsPlaying(!isPlaying)
-  }
-
   return (
-    <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
-      
+    <div className="relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 w-full max-w-[320px] mx-auto">
       <video
-        ref={videoRef}
         className="w-full h-full object-cover"
-        loop
-        playsInline
+        controls
         preload="metadata"
       >
         <source src={item.video} type="video/mp4" />
+        Your browser does not support the video tag.
       </video>
-
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
-
-      {/* Big play/pause button */}
-      <button 
-        onClick={togglePlay}
-        className="absolute inset-0 w-full h-full flex items-center justify-center group/btn"
-      >
-        <div className={`w-16 h-16 rounded-full bg-neon-purple/90 flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
-          {isPlaying ? (
-            <div className="w-6 h-6 flex gap-1 items-center justify-center">
-              <div className="w-1.5 h-5 bg-white rounded-full"></div>
-              <div className="w-1.5 h-5 bg-white rounded-full"></div>
-            </div>
-          ) : (
-            <Play className="w-8 h-8 text-white fill-white ml-1" />
-          )}
-        </div>
-      </button>
-
-      {/* Text */}
-      <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
-        <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block drop-shadow-lg">
+      
+      {/* Simple text overlay at bottom */}
+      <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+        <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold block">
           {item.category}
         </span>
-        <h3 className="text-sm font-bold uppercase text-white drop-shadow-lg">
+        <h3 className="text-xs font-bold uppercase text-white">
           {item.title}
         </h3>
       </div>
-
     </div>
   )
 }
