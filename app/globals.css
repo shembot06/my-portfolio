@@ -442,3 +442,106 @@ a, button, .group, .transition-all {
 
 /* Import the fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@900&family=Coda:wght@800&family=Poppins:ital,wght@0,900;1,900&family=Bebas+Neue&family=Playfair+Display:ital,wght@0,900;1,900&display=swap');
+/* Color cycling glow for profile picture */
+.glow-image {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.glow-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 1rem;
+  padding: 3px;
+  background: linear-gradient(45deg, 
+    #a855f7,  /* purple */
+    #ec4899,  /* pink */
+    #3b82f6,  /* blue */
+    #10b981,  /* green */
+    #f59e0b,  /* orange */
+    #ef4444,  /* red */
+    #a855f7   /* back to purple */
+  );
+  background-size: 300% 300%;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: cycleColors 4s ease infinite;
+}
+
+/* Inner glow */
+.glow-image::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border-radius: 0.8rem;
+  background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.3), transparent 70%);
+  filter: blur(8px);
+  opacity: 0;
+  animation: pulseGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.glow-image img {
+  position: relative;
+  z-index: 2;
+  border-radius: 0.95rem;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@keyframes cycleColors {
+  0% {
+    background-position: 0% 50%;
+    filter: hue-rotate(0deg);
+  }
+  25% {
+    background-position: 50% 50%;
+    filter: hue-rotate(90deg);
+  }
+  50% {
+    background-position: 100% 50%;
+    filter: hue-rotate(180deg);
+  }
+  75% {
+    background-position: 50% 50%;
+    filter: hue-rotate(270deg);
+  }
+  100% {
+    background-position: 0% 50%;
+    filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.1);
+  }
+}
+
+/* Hover effect */
+.glow-image:hover::before {
+  animation-duration: 2s; /* Faster on hover */
+  padding: 5px;
+}
+
+.glow-image:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
