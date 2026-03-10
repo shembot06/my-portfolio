@@ -239,15 +239,16 @@ export default function PortfolioPage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-          {portfolioItems.map((item, index) => (
-  <div key={index} className="w-[300px] md:w-[350px]">
+<div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+  {portfolioItems.map((item, index) => (
     <VideoCard 
+      key={index}
       item={item} 
       playingId={playingId}
       setPlayingId={setPlayingId}
     />
-  </div>
-))}
+  ))}
+</div>
 
       {/* Services Section */}
       <section id="services" className="relative z-10 py-32 px-6 border-t border-white/5 bg-black">
