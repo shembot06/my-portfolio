@@ -355,3 +355,10 @@ a, button, .group, .transition-all {
 .overflow-x-auto > div > div {
   scroll-snap-align: start;
 }
+/* Make videos snap when scrolling */
+.overflow-x-auto > div {
+  scroll-snap-type: x mandatory;
+}
+.overflow-x-auto > div > div {
+  scroll-snap-align: start;
+}
