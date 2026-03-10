@@ -1,5 +1,6 @@
 "use client"
 import { useRef, useEffect, useState } from "react"
+import { Play } from "lucide-react"
 import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
 
 import { sendEmail } from "@/app/actions/send-email"
@@ -10,13 +11,18 @@ emailjs.init("LDAiErYYHHkIijklE")
 
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
 
-  // Auto-play when component mounts
-  useEffect(() => {
+  const togglePlay = () => {
     if (videoRef.current) {
-      videoRef.current.play().catch(e => console.log("Auto-play prevented"));
+      if (isPlaying) {
+        videoRef.current.pause()
+      } else {
+        videoRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
     }
-  }, []);
+  }
 
   return (
     <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
@@ -24,25 +30,55 @@ function VideoCard({ item }: { item: { category: string; title: string; video: s
         ref={videoRef}
         className="w-full h-full object-cover"
         loop
-        muted
         playsInline
-        autoPlay
-        preload="auto"
+        preload="metadata"
+        onClick={togglePlay}
       >
         <source src={item.video} type="video/mp4" />
       </video>
       
-      {/* Gradient overlay - lighter so video shows through */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      {/* Gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none"></div>
       
-      {/* Text content */}
-      <div className="absolute bottom-4 left-4 right-4">
+      {/* Big play/pause button in center */}
+      <button 
+        onClick={togglePlay}
+        className="absolute inset-0 w-full h-full flex items-center justify-center group/btn"
+      >
+        <div className={`w-16 h-16 rounded-full bg-neon-purple/90 flex items-center justify-center backdrop-blur-sm transition-all duration-300 ${isPlaying ? 'opacity-0 group-hover:opacity-100' : 'opacity-100'}`}>
+          {isPlaying ? (
+            <div className="w-6 h-6 flex gap-1 items-center justify-center">
+              <div className="w-1.5 h-5 bg-white rounded-full"></div>
+              <div className="w-1.5 h-5 bg-white rounded-full"></div>
+            </div>
+          ) : (
+            <Play className="w-8 h-8 text-white fill-white ml-1" />
+          )}
+        </div>
+      </button>
+      
+      {/* Text content - always visible */}
+      <div className="absolute bottom-4 left-4 right-4 pointer-events-none">
         <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block drop-shadow-lg">
           {item.category}
         </span>
         <h3 className="text-sm font-bold uppercase text-white drop-shadow-lg">
           {item.title}
         </h3>
+      </div>
+      
+      {/* Video controls indicator (small play/pause in corner) */}
+      <div className="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div className="bg-black/50 backdrop-blur-sm rounded-full p-2">
+          {isPlaying ? (
+            <div className="flex gap-0.5">
+              <div className="w-1 h-4 bg-white rounded-full"></div>
+              <div className="w-1 h-4 bg-white rounded-full"></div>
+            </div>
+          ) : (
+            <Play className="w-4 h-4 text-white fill-white" />
+          )}
+        </div>
       </div>
     </div>
   )
