@@ -408,7 +408,7 @@ a, button, .group, .transition-all {
 }
 /* Font changer animation for CHANGE word */
 .font-changer {
-  animation: changeFont 8s infinite;
+  animation: changeFont 4s infinite;
   display: inline-block;
 }
 
