@@ -1,14 +1,14 @@
 "use client"
 import { useRef, useEffect, useState } from "react"
 import { Camera, Film, Layers, Zap, Play, MessageSquare, Instagram, Youtube, Linkedin, Mail, MessageCircle, CheckCircle, AlertCircle } from "lucide-react"
-<<<<<<< HEAD
+
 import { sendEmail } from "@/app/actions/send-email"
-=======
+
 import emailjs from "@emailjs/browser"
 
 // Initialize EmailJS
 emailjs.init("LDAiErYYHHkIijklE")
->>>>>>> 8d6a9bae0f446320a93da7ee4ef10b60e33b30ff
+
 
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
@@ -61,7 +61,6 @@ function ContactForm() {
       return
     }
 
-<<<<<<< HEAD
     const result = await sendEmail({ name, email, projectType, message })
 
     if (result.success) {
