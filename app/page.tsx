@@ -11,25 +11,38 @@ emailjs.init("LDAiErYYHHkIijklE")
 function VideoCard({ item }: { item: { category: string; title: string; video: string } }) {
   const videoRef = useRef<HTMLVideoElement>(null)
 
+  // Auto-play when component mounts
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.play().catch(e => console.log("Auto-play prevented"));
+    }
+  }, []);
+
   return (
-    <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all">
+    <div className="group relative aspect-[9/16] rounded-xl overflow-hidden bg-gray-900 border border-white/5 hover:border-neon-purple/50 transition-all w-full max-w-[320px] mx-auto">
       <video
         ref={videoRef}
         className="w-full h-full object-cover"
-        controls
         loop
+        muted
         playsInline
-        controlsList="nodownload"
+        autoPlay
+        preload="auto"
       >
         <source src={item.video} type="video/mp4" />
-        Your browser does not support the video tag.
       </video>
-      <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent opacity-80 group-hover:opacity-40 transition-opacity pointer-events-none"></div>
-      <div className="absolute bottom-4 left-4 right-4 translate-y-2 group-hover:translate-y-0 transition-transform pointer-events-none">
-        <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block">
+      
+      {/* Gradient overlay - lighter so video shows through */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+      
+      {/* Text content */}
+      <div className="absolute bottom-4 left-4 right-4">
+        <span className="text-[10px] uppercase tracking-widest text-neon-purple font-bold mb-1 block drop-shadow-lg">
           {item.category}
         </span>
-        <h3 className="text-sm font-bold uppercase">{item.title}</h3>
+        <h3 className="text-sm font-bold uppercase text-white drop-shadow-lg">
+          {item.title}
+        </h3>
       </div>
     </div>
   )
