@@ -362,3 +362,47 @@ a, button, .group, .transition-all {
 .overflow-x-auto > div > div {
   scroll-snap-align: start;
 }
+/* Force horizontal scroll to work */
+.overflow-x-auto {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  cursor: grab;
+  width: 100%;
+}
+
+.overflow-x-auto:active {
+  cursor: grabbing;
+}
+
+/* Hide scrollbar */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Fix for flex children */
+.overflow-x-auto > div {
+  display: flex;
+  flex-wrap: nowrap;
+  width: max-content;
+  min-width: 100%;
+}
+
+/* Ensure videos don't shrink */
+.overflow-x-auto > div > div {
+  flex: 0 0 auto;
+  width: 300px;
+}
+
+/* Responsive for desktop */
+@media (min-width: 768px) {
+  .overflow-x-auto > div > div {
+    width: 350px;
+  }
+}
