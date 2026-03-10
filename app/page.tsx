@@ -387,12 +387,11 @@ export default function PortfolioPage() {
 }
 
 const portfolioItems = [
-  { category: "Luxury", title: "Unboxing Limited Edition Trunk Bag", video: "https://res.cloudinary.com/dxyztzirn/image/upload/v1773115766/professional-video-editor-portrait-masculine-cinem_kpefz7.jpg" },
+  { category: "Luxury", title: "Unboxing Limited Edition Trunk Bag", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113716/video1_qpwtkv.mp4" },
   { category: "Real Estate", title: "0% Down Payment", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113712/video2_txqxym.mp4" },
   { category: "Coach", title: "Podcast Video", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113710/video3_lqv3g6.mp4" },
   { category: "SMM", title: "Service Based Business", video: "https://res.cloudinary.com/dxyztzirn/video/upload/v1773113715/video4_cihi0n.mp4" },
 ]
-
 const tools = [
   { name: "CapCut", initials: "CC" },
   { name: "Premiere Pro", initials: "PR" },
